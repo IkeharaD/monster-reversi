@@ -4,7 +4,7 @@ const board=document.getElementById('board');
 
 const pieceSize=75;
 
-let turn=0,puttableIndexes=getPuttableIndexes(2);
+let turn=0;
 
 const w=4,h=4;
 
@@ -105,7 +105,6 @@ function getAllReversibleIndexes(x,y,state){
 function updateTurn(){
     turn++;
     turnImg.setAttribute('src',imgUrls[turn%2+1]);
-
 }
 
 function isPass(){
