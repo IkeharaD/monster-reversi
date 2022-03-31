@@ -6,7 +6,7 @@ const pieceSize=75;
 
 let turn=0;
 
-const w=4,h=4;
+const w=8,h=8;
 
 const vecs=[];
 
@@ -75,10 +75,10 @@ for(let i=0;i<h;i++){
 updateTurn();
 
 
+pieces[4][4].setState(1);
 pieces[3][3].setState(1);
-pieces[2][2].setState(1);
-pieces[2][3].setState(2);
-pieces[3][2].setState(2);
+pieces[4][3].setState(2);
+pieces[3][4].setState(2);
 
 
 function getReversibleIndexes(x,y,dx,dy,state){
