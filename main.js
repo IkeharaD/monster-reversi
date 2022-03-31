@@ -1,12 +1,14 @@
 const pieces=[];
 
+const w=8,h=8;
+
+
 const board=document.getElementById('board');
 
 const pieceSize=75;
 
 let turn=0;
 
-const w=8,h=8;
 
 const vecs=[];
 
@@ -28,6 +30,8 @@ const STATE_WHITE=1;
 const STATE_BLACK=2;
 
 const turnImg=document.getElementById('turn-img');
+
+
 
 for(let i=0;i<h;i++){
     pieces.push([]);
@@ -72,13 +76,18 @@ for(let i=0;i<h;i++){
     }
 }
 
-updateTurn();
+let puttableIndexes=getPuttableIndexes(2);
+
+
 
 
 pieces[4][4].setState(1);
 pieces[3][3].setState(1);
 pieces[4][3].setState(2);
 pieces[3][4].setState(2);
+
+
+updateTurn();
 
 
 function getReversibleIndexes(x,y,dx,dy,state){
@@ -103,8 +112,16 @@ function getAllReversibleIndexes(x,y,state){
 }
 
 function updateTurn(){
+    for(const index of puttableIndexes){
+        pieces[index[1]][index[0]].img.style.backgroundColor='chartreuse';
+    }
     turn++;
-    turnImg.setAttribute('src',imgUrls[turn%2+1]);
+    const state=turn%2+1;
+    turnImg.setAttribute('src',imgUrls[state]);
+    puttableIndexes=getPuttableIndexes(state);
+    for(const index of puttableIndexes){
+        pieces[index[1]][index[0]].img.style.backgroundColor='#c8fe91';
+    }
 }
 
 function isPass(){
@@ -129,7 +146,7 @@ function getPuttableIndexes(state){
     const indexes=[];
     for(let i=0;i<h;i++){
         for(let j=0;j<w;j++){
-            if(getAllReversibleIndexes(j,i,state).length){
+            if(pieces[i][j].state==0&&getAllReversibleIndexes(j,i,state).length){
                 indexes.push([j,i]);
             }
         }
